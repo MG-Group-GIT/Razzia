@@ -80,5 +80,6 @@ jobs:
             ghcr.io/${{ env.GHCR_REPO }}:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
+          no-cache-filters: runner
           build-args: |
             BUILDKIT_INLINE_CACHE=1
