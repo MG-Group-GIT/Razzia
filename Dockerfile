@@ -33,5 +33,9 @@ COPY --from=builder /app/packages/socket/dist/index.cjs /app/socket/index.cjs
 
 EXPOSE 3000
 
+# Tells razzia-manager that this image handles BASE_PATH itself, so its proxy
+# only has to strip the prefix instead of rewriting the responses.
+LABEL org.mg-group.razzia.base-path="1"
+
 ENTRYPOINT ["/bin/sh", "/entrypoint.sh"]
 CMD ["supervisord", "-c", "/etc/supervisord.conf"]
