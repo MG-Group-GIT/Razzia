@@ -37,5 +37,11 @@ EXPOSE 3000
 # only has to strip the prefix instead of rewriting the responses.
 LABEL org.mg-group.razzia.base-path="1"
 
+# Shown by razzia-manager next to each instance (set by the MG Image workflow)
+ARG RAZZIA_VERSION=dev
+ARG RAZZIA_REVISION=unknown
+LABEL org.opencontainers.image.version="$RAZZIA_VERSION" \
+      org.opencontainers.image.revision="$RAZZIA_REVISION"
+
 ENTRYPOINT ["/bin/sh", "/entrypoint.sh"]
 CMD ["supervisord", "-c", "/etc/supervisord.conf"]

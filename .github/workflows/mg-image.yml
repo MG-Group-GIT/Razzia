@@ -17,6 +17,9 @@ jobs:
       - name: Extract full repository path (lowercase, for GHCR)
         run: echo "GHCR_REPO=$(echo ${{ github.repository }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
 
+      - name: Extract version
+        run: echo "RAZZIA_VERSION=$(jq -r .version package.json)-mg" >> $GITHUB_ENV
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4.4.1
 
@@ -36,5 +39,8 @@ jobs:
           tags: |
             ghcr.io/${{ env.GHCR_REPO }}:latest
             ghcr.io/${{ env.GHCR_REPO }}:${{ github.sha }}
+          build-args: |
+            RAZZIA_VERSION=${{ env.RAZZIA_VERSION }}
+            RAZZIA_REVISION=${{ github.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
