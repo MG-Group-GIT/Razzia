@@ -16,7 +16,7 @@ RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 
 COPY . .
 
-RUN pnpm build
+RUN VITE_BASE=/__RAZZIA_BASE__/ pnpm build
 
 # ---- RUNNER ----
 FROM alpine:3.24.2 AS runner
@@ -26,9 +26,12 @@ RUN apk add --no-cache nginx nodejs supervisor
 COPY docker/nginx.conf /etc/nginx/http.d/default.conf
 COPY docker/supervisord.conf /etc/supervisord.conf
 
-COPY --from=builder /app/packages/web/dist /app/web
+COPY docker/entrypoint.sh /entrypoint.sh
+
+COPY --from=builder /app/packages/web/dist /app/web-dist
 COPY --from=builder /app/packages/socket/dist/index.cjs /app/socket/index.cjs
 
 EXPOSE 3000
 
+ENTRYPOINT ["/bin/sh", "/entrypoint.sh"]
 CMD ["supervisord", "-c", "/etc/supervisord.conf"]

@@ -4,6 +4,7 @@ import type {
   SessionResponse,
   SessionRole,
 } from "@razzia/common/types/auth"
+import { withBase } from "@razzia/web/lib/base"
 
 const TOKEN_KEY = "token"
 
@@ -91,7 +92,7 @@ export const getRole = (): SessionRole => {
 }
 
 const requestSession = async (token: string | null) => {
-  const response = await fetch("/api/auth/session", {
+  const response = await fetch(withBase("/api/auth/session"), {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(token ? { token } : {}),

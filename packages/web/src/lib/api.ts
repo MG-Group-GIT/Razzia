@@ -1,4 +1,5 @@
 import type { ApiType } from "@razzia/socket/api"
+import { withBase } from "@razzia/web/lib/base"
 import { clearToken, ensureSession } from "@razzia/web/lib/session"
 import { hc } from "hono/client"
 import { StatusCodes } from "http-status-codes"
@@ -32,7 +33,7 @@ const authFetch: typeof fetch = async (input, init) => {
   return response
 }
 
-export const api = hc<ApiType>("/api", { fetch: authFetch })
+export const api = hc<ApiType>(withBase("/api"), { fetch: authFetch })
 
 const readErrorKey = async (response: Response, fallback: string) => {
   try {

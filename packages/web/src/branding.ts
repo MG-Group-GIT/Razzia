@@ -1,5 +1,6 @@
 import type { ReactEventHandler } from "react"
 import { z } from "zod"
+import { withBase } from "@razzia/web/lib/base"
 
 const brandingSchema = z.object({
   appName: z.string().optional(),
@@ -15,11 +16,23 @@ export type BrandingTheme = z.infer<typeof brandingSchema>
 
 let current: BrandingTheme | null = null
 
+/** Branding files are referenced as "/branding/...", relative to the app root. */
+const withBasePaths = (theme: BrandingTheme): BrandingTheme => ({
+  ...theme,
+  logo: theme.logo && withBase(theme.logo),
+  favicon: theme.favicon && withBase(theme.favicon),
+  background: theme.background && withBase(theme.background),
+  font: theme.font && {
+    ...theme.font,
+    url: theme.font.url && withBase(theme.font.url),
+  },
+})
+
 export const getBranding = (): BrandingTheme | null => current
 
 export const loadBranding = async (): Promise<BrandingTheme | null> => {
   try {
-    const response = await fetch("/branding/theme.json", {
+    const response = await fetch(withBase("/branding/theme.json"), {
       cache: "no-cache",
       signal: AbortSignal.timeout(2000),
     })
@@ -29,7 +42,7 @@ export const loadBranding = async (): Promise<BrandingTheme | null> => {
     }
 
     const parsed = brandingSchema.safeParse(await response.json())
-    current = parsed.success ? parsed.data : null
+    current = parsed.success ? withBasePaths(parsed.data) : null
 
     return current
   } catch {

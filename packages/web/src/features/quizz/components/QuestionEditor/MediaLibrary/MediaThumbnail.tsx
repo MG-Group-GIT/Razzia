@@ -2,6 +2,7 @@ import { MEDIA_TYPES } from "@razzia/common/constants"
 import type { UploadedMedia } from "@razzia/common/types/game"
 import clsx from "clsx"
 import { Music, Video } from "lucide-react"
+import { withBase } from "@razzia/web/lib/base"
 
 interface Props {
   media: UploadedMedia
@@ -26,7 +27,7 @@ const MediaThumbnail = ({ media, size = "lg" }: Props) => {
   if (media.type === MEDIA_TYPES.IMAGE) {
     return (
       <img
-        src={media.url}
+        src={withBase(media.url)}
         alt={media.name}
         loading="lazy"
         className={previewClassName}
@@ -37,7 +38,7 @@ const MediaThumbnail = ({ media, size = "lg" }: Props) => {
   return (
     <>
       <video
-        src={media.url}
+        src={withBase(media.url)}
         preload="metadata"
         muted
         className={previewClassName}

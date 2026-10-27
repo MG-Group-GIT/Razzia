@@ -12,6 +12,7 @@ import Summary from "@razzia/web/features/game/components/states/Summary"
 import Wait from "@razzia/web/features/game/components/states/Wait"
 
 import { STATUS } from "@razzia/common/types/game/status"
+import { withBase } from "@razzia/web/lib/base"
 
 export const ANSWERS_COLORS = [
   "bg-[var(--color-answer-1)] text-white",
@@ -54,18 +55,18 @@ export const GAME_STATE_COMPONENTS_MANAGER = {
 
 export const SFX = {
   ANSWERS: {
-    MUSIC: "/sounds/answersMusic.mp3",
-    SOUND: "/sounds/answersSound.mp3",
+    MUSIC: withBase("/sounds/answersMusic.mp3"),
+    SOUND: withBase("/sounds/answersSound.mp3"),
   },
   PODIUM: {
-    THREE: "/sounds/three.mp3",
-    SECOND: "/sounds/second.mp3",
-    FIRST: "/sounds/first.mp3",
-    SNEAR_ROOL: "/sounds/snearRoll.mp3",
+    THREE: withBase("/sounds/three.mp3"),
+    SECOND: withBase("/sounds/second.mp3"),
+    FIRST: withBase("/sounds/first.mp3"),
+    SNEAR_ROOL: withBase("/sounds/snearRoll.mp3"),
   },
-  RESULTS_SOUND: "/sounds/results.mp3",
-  SHOW_SOUND: "/sounds/show.mp3",
-  BOUMP_SOUND: "/sounds/boump.mp3",
+  RESULTS_SOUND: withBase("/sounds/results.mp3"),
+  SHOW_SOUND: withBase("/sounds/show.mp3"),
+  BOUMP_SOUND: withBase("/sounds/boump.mp3"),
 } as const
 
 export function isKeyOf<T extends object>(

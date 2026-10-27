@@ -1,5 +1,6 @@
 import { MEDIA_TYPES } from "@razzia/common/constants"
 import type { QuestionMedia as QuestionMediaType } from "@razzia/common/types/game"
+import { withBase } from "@razzia/web/lib/base"
 
 interface Props {
   media?: QuestionMediaType
@@ -12,7 +13,7 @@ const QuestionMedia = ({ media, alt = "", autoPlay = true }: Props) => {
     return (
       <img
         alt={alt}
-        src={media.url}
+        src={withBase(media.url)}
         className="max-h-60 w-auto rounded-md sm:max-h-100"
       />
     )
@@ -22,7 +23,7 @@ const QuestionMedia = ({ media, alt = "", autoPlay = true }: Props) => {
     return (
       <video
         className="m-4 mb-2 aspect-video max-h-60 w-auto rounded-md px-4 sm:max-h-100"
-        src={media.url}
+        src={withBase(media.url)}
         autoPlay={autoPlay}
         controls
       />
@@ -33,7 +34,7 @@ const QuestionMedia = ({ media, alt = "", autoPlay = true }: Props) => {
     return (
       <audio
         className="m-4 mb-2 w-full max-w-md rounded-md"
-        src={media.url}
+        src={withBase(media.url)}
         autoPlay={autoPlay}
         controls
       />

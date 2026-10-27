@@ -4,6 +4,7 @@ import clsx from "clsx"
 import { X } from "lucide-react"
 import { Dialog, VisuallyHidden } from "radix-ui"
 import { type PropsWithChildren, useState } from "react"
+import { withBase } from "@razzia/web/lib/base"
 
 type Props = PropsWithChildren & {
   question: string
@@ -55,7 +56,7 @@ const QuestionDialog = ({
           {media?.type === MEDIA_TYPES.VIDEO && (
             <video
               className={clsx(mediaHeight, "w-full rounded-md object-contain")}
-              src={media.url}
+              src={withBase(media.url)}
               autoPlay
               controls
             />
@@ -64,7 +65,7 @@ const QuestionDialog = ({
           {media?.type === MEDIA_TYPES.IMAGE && (
             <img
               alt={question}
-              src={media.url}
+              src={withBase(media.url)}
               className={clsx(
                 mediaHeight,
                 "max-w-full rounded-md object-contain",

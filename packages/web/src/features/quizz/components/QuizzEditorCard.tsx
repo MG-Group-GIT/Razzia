@@ -5,11 +5,12 @@ import clsx from "clsx"
 import { CircleAlert, Music, Trash2, Video } from "lucide-react"
 import { useTranslation } from "react-i18next"
 import { twMerge } from "tailwind-merge"
+import { withBase } from "@razzia/web/lib/base"
 
 const SlideMedia = ({ media }: { media?: QuestionMedia }) => {
   if (media?.type === MEDIA_TYPES.IMAGE) {
     return (
-      <img src={media.url} className="mx-auto max-h-14 w-auto rounded-md" />
+      <img src={withBase(media.url)} className="mx-auto max-h-14 w-auto rounded-md" />
     )
   }
 

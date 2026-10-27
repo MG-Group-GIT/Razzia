@@ -2,6 +2,7 @@ import type {
   ClientToServerEvents,
   ServerToClientEvents,
 } from "@razzia/common/types/game/socket"
+import { withBase } from "@razzia/web/lib/base"
 import { clearToken, ensureSession } from "@razzia/web/lib/session"
 import React, {
   createContext,
@@ -28,7 +29,7 @@ interface SocketContextValue {
 const MAX_AUTH_RETRIES = 2
 
 export const socketClient: TypedSocket = io("/", {
-  path: "/ws",
+  path: withBase("/ws"),
   autoConnect: false,
   reconnection: true,
   reconnectionAttempts: Infinity,

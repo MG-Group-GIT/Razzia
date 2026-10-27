@@ -4,12 +4,17 @@ import Toaster from "@razzia/web/components/Toaster"
 import { socketClient } from "@razzia/web/features/game/contexts/socket-context"
 import "@razzia/web/i18n"
 import "@razzia/web/index.css"
+import { BASE_PATH } from "@razzia/web/lib/base"
 import { routeTree } from "@razzia/web/route.gen"
 import { RouterProvider, createRouter } from "@tanstack/react-router"
 import { StrictMode } from "react"
 import { createRoot } from "react-dom/client"
 
-const router = createRouter({ routeTree, context: { socket: socketClient } })
+const router = createRouter({
+  routeTree,
+  basepath: BASE_PATH,
+  context: { socket: socketClient },
+})
 
 declare module "@tanstack/react-router" {
   interface Register {

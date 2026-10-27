@@ -99,6 +99,9 @@ const serverOptions = {
 }
 
 export default defineConfig({
+  // The Docker build sets a placeholder that docker/entrypoint.sh replaces
+  // with BASE_PATH at container start (one image for any sub path).
+  base: process.env.VITE_BASE ?? "/",
   define: {
     __APP_VERSION__: JSON.stringify(packageJson.version),
   },
