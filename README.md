@@ -7,6 +7,11 @@
   </div>
 </p>
 
+> **MG-Group fork** of [Ralex91/Razzia](https://github.com/Ralex91/Razzia) with two additions:
+>
+> - `BASE_PATH`: one image serves the app under any sub path (`https://quiz.example.com/NAME/`), see `.env.example`.
+> - Answers with images (like Kahoot): every answer of a single/multi choice question can carry an image, text becomes optional.
+
 ## 🧩 What is this project?
 
 Razzia is a straightforward and open-source quiz platform, allowing users to host it on their own server for smaller events.

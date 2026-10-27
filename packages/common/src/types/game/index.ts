@@ -69,6 +69,8 @@ export interface Question {
   note?: string
   media?: QuestionMedia
   answers: string[]
+  /** Optional image per answer, same index as `answers` ("" = text only). */
+  answerImages?: string[]
   solutions?: number[]
   cooldown: number
   time: number

@@ -318,6 +318,7 @@ export class RoundManager {
     this.opts.broadcast(STATUS.SELECT_ANSWER, {
       question: this.question.question,
       answers: this.question.answers,
+      answerImages: this.question.answerImages,
       media: this.question.media,
       time: this.question.time,
       totalPlayer: this.opts.players.count(),

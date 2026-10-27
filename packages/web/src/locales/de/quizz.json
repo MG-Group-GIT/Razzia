@@ -101,5 +101,11 @@
   },
   "addAnswer": "Antwort hinzufügen",
   "removeAnswer": "Antwort entfernen",
-  "markCorrect": "{{label}} als richtig markieren"
+  "markCorrect": "{{label}} als richtig markieren",
+  "answerImage": {
+    "add": "Bild hinzufügen",
+    "replace": "Bild ersetzen",
+    "remove": "Bild entfernen",
+    "textPlaceholder": "Text (optional)..."
+  }
 }

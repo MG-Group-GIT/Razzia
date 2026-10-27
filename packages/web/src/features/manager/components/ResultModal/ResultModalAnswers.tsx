@@ -18,9 +18,11 @@ import { formatValue } from "@razzia/web/features/questions/estimation/utils"
 import clsx from "clsx"
 import { Check, Clock, ImageOff, Music, Video, X } from "lucide-react"
 import { useTranslation } from "react-i18next"
+import { withBase } from "@razzia/web/lib/base"
 
 interface AnswerRow {
   label: string
+  image?: string
   count: number
   isCorrect: boolean
   color: string | null
@@ -31,7 +33,7 @@ const MediaPreview = ({ media }: { media?: QuestionMedia }) => {
   if (media?.type === MEDIA_TYPES.IMAGE) {
     return (
       <img
-        src={media.url}
+        src={withBase(media.url)}
         alt=""
         className="h-16 w-auto rounded-md object-contain md:h-full"
       />
@@ -124,6 +126,7 @@ const ResultModalAnswers = () => {
 
     return questionResult.answers.map((label, ai) => ({
       label,
+      image: questionResult.answerImages?.[ai] || undefined,
       count: questionResult.playerAnswers.filter((pa) =>
         pa.answerIds?.includes(ai),
       ).length,
@@ -203,11 +206,19 @@ const ResultModalAnswers = () => {
               )}
 
               <span
-                className={clsx("min-w-0 truncate text-sm font-medium", {
-                  "text-muted-foreground": !row.color,
-                })}
+                className={clsx(
+                  "flex min-w-0 items-center gap-2 text-sm font-medium",
+                  { "text-muted-foreground": !row.color },
+                )}
               >
-                {row.label}
+                {row.image && (
+                  <img
+                    src={withBase(row.image)}
+                    alt=""
+                    className="h-8 w-12 shrink-0 rounded object-cover"
+                  />
+                )}
+                <span className="truncate">{row.label}</span>
               </span>
 
               {result.gameMode !== QUIZZ_MODES.SURVEY && (

@@ -84,6 +84,44 @@ describe("quizzValidator", () => {
     ).toContain("errors:quizz.tooManyAnswers")
   })
 
+  it("requires a text or an image for every choice answer", () => {
+    expect(issues(quizz([choiceQuestion({ answers: ["A", " "] })]))).toContain(
+      "errors:quizz.answerEmpty",
+    )
+    expect(
+      issues(
+        quizz([
+          choiceQuestion({
+            answers: ["A", ""],
+            answerImages: ["", "/media/cat.png"],
+          }),
+        ]),
+      ),
+    ).toEqual([])
+  })
+
+  it("rejects invalid answer images", () => {
+    expect(
+      issues(quizz([choiceQuestion({ answerImages: ["not a url", ""] })])),
+    ).toContain("errors:quizz.invalidMediaUrl")
+    expect(
+      issues(
+        quizz([choiceQuestion({ answerImages: ["", "", "/media/x.png"] })]),
+      ),
+    ).toContain("errors:quizz.invalidMediaUrl")
+  })
+
+  it("keeps answer images when parsing", () => {
+    const data = quizz([
+      choiceQuestion({ answerImages: ["https://example.com/a.png", ""] }),
+    ])
+
+    expect(quizzValidator.parse(data).questions[0].answerImages).toEqual([
+      "https://example.com/a.png",
+      "",
+    ])
+  })
+
   it("accepts 0 max points but no negative points", () => {
     expect(issues(quizz([choiceQuestion({ maxPoints: 0 })]))).toEqual([])
     expect(issues(quizz([choiceQuestion({ maxPoints: -1 })]))).toContain(

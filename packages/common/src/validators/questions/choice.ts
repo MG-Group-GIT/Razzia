@@ -11,9 +11,19 @@ export const multiOptionsValidator = z.object({
 })
 
 export const refineChoiceQuestion: QuestionRefinement = (
-  { answers, solutions },
+  { answers, answerImages, solutions },
   addIssue,
 ) => {
+  answers.forEach((answer, index) => {
+    if (answer.trim() === "" && !answerImages?.[index]) {
+      addIssue(["answers", index], "errors:quizz.answerEmpty")
+    }
+  })
+
+  if (answerImages && answerImages.length > answers.length) {
+    addIssue(["answerImages"], "errors:quizz.invalidMediaUrl")
+  }
+
   if (answers.length < MIN_ANSWERS) {
     addIssue(["answers"], "errors:quizz.tooFewAnswers")
   }

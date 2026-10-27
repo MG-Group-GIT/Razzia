@@ -101,5 +101,11 @@
   },
   "addAnswer": "Ajouter une réponse",
   "removeAnswer": "Retirer une réponse",
-  "markCorrect": "Marquer {{label}} comme bonne réponse"
+  "markCorrect": "Marquer {{label}} comme bonne réponse",
+  "answerImage": {
+    "add": "Ajouter une image",
+    "replace": "Remplacer l'image",
+    "remove": "Retirer l'image",
+    "textPlaceholder": "Texte (facultatif)..."
+  }
 }

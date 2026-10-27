@@ -10,7 +10,10 @@ import { withBase } from "@razzia/web/lib/base"
 const SlideMedia = ({ media }: { media?: QuestionMedia }) => {
   if (media?.type === MEDIA_TYPES.IMAGE) {
     return (
-      <img src={withBase(media.url)} className="mx-auto max-h-14 w-auto rounded-md" />
+      <img
+        src={withBase(media.url)}
+        className="mx-auto max-h-14 w-auto rounded-md"
+      />
     )
   }
 

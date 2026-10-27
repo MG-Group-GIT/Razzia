@@ -17,7 +17,8 @@ interface Props {
 }
 
 const Responses = ({ data }: Props) => {
-  const { question, answers, responses, solutions, type, note } = data
+  const { question, answers, answerImages, responses, solutions, type, note } =
+    data
   const { ResponsesComponent } = QUESTION_REGISTRY[type]
   const percentages = calculatePercentages(responses)
   const [isMusicPlaying, setIsMusicPlaying] = useState(false)
@@ -101,6 +102,7 @@ const Responses = ({ data }: Props) => {
                 "opacity-65": solutions && !solutions.includes(key),
               })}
               label={ANSWERS_LABELS[key]}
+              image={answerImages?.[key]}
               correct={solutions ? solutions.includes(key) : undefined}
             >
               {answer}

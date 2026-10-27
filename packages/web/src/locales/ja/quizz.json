@@ -101,5 +101,11 @@
   },
   "addAnswer": "回答を追加",
   "removeAnswer": "回答を削除",
-  "markCorrect": "{{label}} を正解にする"
+  "markCorrect": "{{label}} を正解にする",
+  "answerImage": {
+    "add": "画像を追加",
+    "replace": "画像を置き換え",
+    "remove": "画像を削除",
+    "textPlaceholder": "テキスト（任意）..."
+  }
 }

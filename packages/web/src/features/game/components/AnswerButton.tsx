@@ -1,3 +1,4 @@
+import { withBase } from "@razzia/web/lib/base"
 import clsx from "clsx"
 import { Check, X } from "lucide-react"
 import type { ButtonHTMLAttributes, PropsWithChildren } from "react"
@@ -5,6 +6,7 @@ import type { ButtonHTMLAttributes, PropsWithChildren } from "react"
 type Props = PropsWithChildren &
   ButtonHTMLAttributes<HTMLButtonElement> & {
     label: string
+    image?: string
     correct?: boolean
     selected?: boolean
     large?: boolean
@@ -13,6 +15,7 @@ type Props = PropsWithChildren &
 const AnswerButton = ({
   className,
   label,
+  image,
   children,
   correct,
   selected,
@@ -25,10 +28,22 @@ const AnswerButton = ({
     <button
       className={clsx(
         "relative flex rounded-2xl p-4 text-left sm:py-6",
+        image && "flex-col gap-3",
         className,
       )}
       {...otherProps}
     >
+      {image && (
+        <img
+          src={withBase(image)}
+          alt={typeof children === "string" ? children : ""}
+          draggable={false}
+          className={clsx(
+            "pointer-events-none mx-auto w-full rounded-lg bg-black/10 object-contain select-none",
+            large ? "min-h-0 flex-1" : "h-24 sm:h-32 md:h-40",
+          )}
+        />
+      )}
       <div className="grid w-full grid-cols-[auto_1fr_auto] content-start items-center gap-x-3 gap-y-2 sm:content-center">
         <span
           className={clsx(

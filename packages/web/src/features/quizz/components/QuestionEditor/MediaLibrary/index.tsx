@@ -49,6 +49,14 @@ const MediaLibrary = ({ open, onOpenChange }: Props) => {
         if (question.media?.url === item.url) {
           updateQuestion(index, { media: undefined })
         }
+
+        if (question.answerImages?.includes(item.url)) {
+          updateQuestion(index, {
+            answerImages: question.answerImages.map((url) =>
+              url === item.url ? "" : url,
+            ),
+          })
+        }
       })
       queryClient.invalidateQueries({ queryKey: mediaKeys.all })
     },

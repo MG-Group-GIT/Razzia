@@ -101,5 +101,11 @@
   },
   "addAnswer": "Cevap ekle",
   "removeAnswer": "Cevabı kaldır",
-  "markCorrect": "{{label}} seçeneğini doğru olarak işaretle"
+  "markCorrect": "{{label}} seçeneğini doğru olarak işaretle",
+  "answerImage": {
+    "add": "Görsel ekle",
+    "replace": "Görseli değiştir",
+    "remove": "Görseli kaldır",
+    "textPlaceholder": "Metin (isteğe bağlı)..."
+  }
 }

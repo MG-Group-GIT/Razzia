@@ -36,6 +36,7 @@ export interface CommonStatusDataMap {
   SELECT_ANSWER: {
     question: string
     answers: string[]
+    answerImages?: string[]
     media?: QuestionMedia
     time: number
     totalPlayer: number
@@ -67,6 +68,7 @@ interface ManagerExtraStatus {
     responses: Record<number, number>
     solutions?: number[]
     answers: string[]
+    answerImages?: string[]
     media?: QuestionMedia
     type: QuestionType
     options?: QuestionOptions

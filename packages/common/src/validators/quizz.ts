@@ -11,18 +11,24 @@ import { multiOptionsValidator } from "@razzia/common/validators/questions/choic
 import { estimationOptionsValidator } from "@razzia/common/validators/questions/estimation"
 import { z } from "zod"
 
+const isMediaUrl = (url: string) =>
+  url.startsWith(MEDIA_URL_PREFIX) || z.url().safeParse(url).success
+
 export const questionMediaValidator = z.object({
   type: z
     .enum([MEDIA_TYPES.IMAGE, MEDIA_TYPES.VIDEO, MEDIA_TYPES.AUDIO])
     .optional(),
   url: z
     .string("errors:quizz.invalidMediaUrl")
-    .refine(
-      (url) =>
-        url.startsWith(MEDIA_URL_PREFIX) || z.url().safeParse(url).success,
-      "errors:quizz.invalidMediaUrl",
-    ),
+    .refine(isMediaUrl, "errors:quizz.invalidMediaUrl"),
 })
+
+export const answerImageValidator = z
+  .string()
+  .refine(
+    (url) => url === "" || isMediaUrl(url),
+    "errors:quizz.invalidMediaUrl",
+  )
 
 export const mediaUploadValidator = z.object({
   file: z
@@ -36,7 +42,9 @@ const questionSchema = z.object({
   category: z.string().optional(),
   note: z.string().optional(),
   media: questionMediaValidator.optional(),
-  answers: z.array(z.string().min(1, "errors:quizz.answerEmpty")),
+  // An answer may be image-only; refineChoiceQuestion checks text or image.
+  answers: z.array(z.string()),
+  answerImages: z.array(answerImageValidator).optional(),
   solutions: z.array(z.number()).optional(),
   cooldown: z
     .number()

@@ -11,6 +11,7 @@ import { useTranslation } from "react-i18next"
 
 const MultiAnswers = ({
   answers,
+  answerImages,
   onSubmit,
   readOnly,
   fill,
@@ -51,6 +52,7 @@ const MultiAnswers = ({
               key={key}
               className={ANSWERS_COLORS[key]}
               label={ANSWERS_LABELS[key]}
+              image={answerImages?.[key]}
               onClick={() => toggle(key)}
               selected={readOnly ? undefined : isSelected}
               disabled={readOnly}

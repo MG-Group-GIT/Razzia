@@ -23,6 +23,7 @@ export const initialValues = (): Partial<Question> => {
 
   return {
     answers: [],
+    answerImages: undefined,
     solutions: [snapToStep((options.min + options.max) / 2, options)],
     options,
   }
